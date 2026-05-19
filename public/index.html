@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>kon.cafe — landing</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400;500;600;700&family=Shadows+Into+Light&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --espresso:#2A1A12;
+    --espresso-2:#3A261B;
+    --cream:#F5EDE2;
+    --cream-2:#EFE6D9;
+    --tan:#D6C5AC;
+    --muted:#6B4A36;
+    --accent:#B85C2E;
+    --accent-light:#E89968;
+    --paper:#F5ECDB;
+    --tape:#E8DEBE;
+    --stamp:#B0432B;
+    --ink:#2A1A12;
+  }
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--espresso);font-family:'Inter Tight',system-ui,sans-serif;}
+  *{box-sizing:border-box;}
+
+  .kc-logo{display:inline-block;color:var(--espresso);text-align:left;}
+  .kc-logo .mark{font-family:'Inter Tight',system-ui;font-weight:600;letter-spacing:-0.055em;line-height:0.95;}
+  .kc-logo .mark .dot{color:var(--accent);}
+  .kc-logo .mark .lt{font-weight:300;}
+  .kc-logo .tag{font-family:'Inter Tight',system-ui;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-top:10px;}
+  .kc-logo.dark{color:var(--cream);}
+  .kc-logo.dark .mark .dot{color:var(--accent-light);}
+  .kc-logo.dark .tag{color:var(--tan);}
+
+  .hand{font-family:'Caveat',cursive;}
+  .hand-loose{font-family:'Shadows Into Light',cursive;}
+  .serif{font-family:'Fraunces',serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+
+  .paper-tex{position:relative;}
+  .paper-tex::after{
+    content:'';position:absolute;inset:0;pointer-events:none;opacity:0.35;mix-blend-mode:multiply;
+    background-image:
+      radial-gradient(rgba(80,70,40,0.08) 1px, transparent 1px),
+      radial-gradient(rgba(120,100,60,0.06) 1px, transparent 1px);
+    background-size:3px 3px, 7px 7px;
+    background-position:0 0, 1px 2px;
+  }
+
+  .tape{position:absolute;width:90px;height:22px;background:linear-gradient(180deg,rgba(232,222,190,0.88),rgba(216,204,170,0.88));box-shadow:0 1px 2px rgba(0,0,0,0.08);}
+  .tape::before,.tape::after{content:'';position:absolute;top:0;bottom:0;width:6px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4));}
+  .tape::before{left:0;}.tape::after{right:0;}
+
+  .stamp{display:inline-flex;align-items:center;justify-content:center;border:2px solid var(--stamp);color:var(--stamp);font-family:'Inter Tight',sans-serif;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;padding:8px 14px;border-radius:6px;transform:rotate(-6deg);opacity:0.92;}
+
+  /* responsive scaling for fixed-width 1440 design */
+  .stage{width:100%;display:flex;justify-content:center;overflow:hidden;}
+  .frame{width:1440px;transform-origin:top center;}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="shared.jsx"></script>
+<script type="text/babel" src="landing-b.jsx"></script>
+<script type="text/babel">
+function App() {
+  const ref = React.useRef(null);
+  React.useEffect(() => {
+    const fit = () => {
+      const el = ref.current; if (!el) return;
+      const parent = el.parentElement;
+      const scale = Math.min(1, parent.clientWidth / 1440);
+      el.style.transform = `scale(${scale})`;
+      el.style.height = `${el.firstChild.offsetHeight * scale}px`;
+    };
+    fit();
+    window.addEventListener('resize', fit);
+    return () => window.removeEventListener('resize', fit);
+  }, []);
+  return (
+    <div className="stage">
+      <div className="frame" ref={ref}>
+        <LandingB show={{ hero:true, coffee:true, food:true, location:true, press:true, insta:true, footer:true }}/>
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

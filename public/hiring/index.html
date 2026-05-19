@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E22SK2WHTL"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-E22SK2WHTL');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We Are Hiring! Barista Full Time</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0fdf4; /* Light green background */
+        }
+        .container {
+            max-width: 900px;
+        }
+        .header-bg {
+            background-color: #16a34a; /* Darker green for header */
+        }
+        .button-primary {
+            background-color: #16a34a;
+            transition: background-color 0.3s ease;
+        }
+        .button-primary:hover {
+            background-color: #15803d;
+        }
+        .email-icon {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+        .barista-illustration {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.75rem; /* Added rounded corners to the image */
+        }
+        @media (min-width: 768px) {
+            .barista-illustration {
+                max-width: 400px; /* Adjust size for larger screens */
+            }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="container bg-white rounded-xl shadow-lg overflow-hidden md:flex">
+        <!-- Left Section: Image and Hiring Title -->
+        <div class="header-bg p-8 flex flex-col items-center justify-center text-white text-center md:w-1/2">
+            <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-4">WE ARE HIRING!</h1>
+            <div class="bg-white text-green-700 px-6 py-3 rounded-full text-2xl font-bold tracking-wide shadow-md">
+                BARISTA FULL TIME
+            </div>
+            <!-- Updated the image source to the provided barista art -->
+            <img src="/hiring/barista.jpg" alt="barista image" class="barista-illustration mt-8">
+        </div>
+
+        <!-- Right Section: Qualifications and Application -->
+        <div class="p-8 md:w-1/2 flex flex-col justify-center">
+            <!-- Company Logo/Name (Placeholder) -->
+            <div class="flex items-center justify-end mb-6">
+                <div class="bg-green-700 text-white rounded-full p-3 flex items-center space-x-2 shadow-md">
+                    <img src="/logo.png" alt="Coffee Icon" class="rounded-full">
+                    <span class="font-bold text-lg">KEDAI OMA NANA</span>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Kualifikasi :</h2>
+            <ul class="list-disc list-inside text-gray-700 space-y-2 mb-8">
+                <li>Pria/Wanita</li>
+                <li>Supel dengan Pelanggan</li>
+                <li>Komunikasi Baik</li>
+                <li>Min pendidikan SMK/sederajat</li>
+                <li>Disciplined, skilled and honest</li>
+            </ul>
+
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Send your resume to our email with subject "Barista":</h2>
+            <a href="mailto:admin@KedaiOmaNana.com" class="button-primary text-white font-bold py-3 px-6 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl">
+                <svg class="email-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                </svg>
+                admin@KedaiOmaNana.com
+            </a>
+        </div>
+    </div>
+</body>
+</html>
