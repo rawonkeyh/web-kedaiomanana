@@ -5,31 +5,30 @@ const KC_COPY = {
   intro: 'a little green room for slow coffee, warm bread, and the kind of afternoon you forget to leave.',
   address: ['Jl. Medokan Asri Timur Blok I/21', 'Surabaya'],
   hours: [
-    ['Mon — Thu', '7:00 — 18:00'],
-    ['Fri', '7:00 — 22:00'],
-    ['Sat — Sun', '8:00 — 22:00'],
+    ['Everyday', '08:00 — 23:00'],
   ],
   contact: { phone: '+62 822 3033 7337', wa: '+62 822 3033 7337', email: 'halo@kon.cafe', ig: '@kon.cafe', maps: 'https://maps.app.goo.gl/16mdYQC8e3piZpWR9' },
 };
 
 const KC_COFFEE = [
-  { name: 'House Filter',     price: '32', note: 'rotating single-origin · v60' },
-  { name: 'Espresso',         price: '28', note: 'the short one' },
-  { name: 'Long Black',       price: '32', note: 'double shot, hot water' },
-  { name: 'Flat White',       price: '36', note: 'whole milk · 6oz' },
-  { name: 'Pandan Latte',     price: '42', note: 'house pandan syrup', star: true },
-  { name: 'Matcha · oma\'s',  price: '40', note: 'ceremonial · oat milk', star: true },
-  { name: 'Iced Kopi Susu',   price: '34', note: 'palm sugar · ice' },
-  { name: 'Ginger Tonic',     price: '32', note: 'no caffeine · spicy' },
+  { name: 'Americano',            price: '22', note: 'espresso · long' },
+  { name: 'Cafe Latte',           price: '23', note: 'espresso · steamed milk' },
+  { name: 'Kopi Susu Gula Aren',  price: '24', note: 'palm sugar · iced', star: true },
+  { name: 'Kopitiam',             price: '15', note: 'local style · sweet' },
+  { name: 'Vietnam Drip',         price: '15', note: 'slow drip · condensed milk' },
+  { name: 'Matcha Latte',         price: '26', note: 'ceremonial grade', star: true },
+  { name: 'Teh Tarik',            price: '17', note: 'pulled tea · creamy' },
+  { name: 'Wedang Uwuh',          price: '20', note: 'javanese spices · no caffeine' },
 ];
 
 const KC_FOOD = [
-  { name: 'Kue Lapis',        price: '24', note: 'oma\'s recipe · daily', star: true },
-  { name: 'Pandan Roll',      price: '28', note: 'soft, green, warm' },
-  { name: 'Sourdough Toast',  price: '32', note: 'butter · sea salt' },
-  { name: 'Pisang Goreng',    price: '26', note: 'fried banana · gula merah' },
-  { name: 'Egg Sandwich',     price: '42', note: 'soft scramble · brioche' },
-  { name: 'Greens Bowl',      price: '58', note: 'rice · sambal matah · egg' },
+  { name: 'Nasi Daging Rawon',       price: '35', note: 'beef · keluak broth', star: true },
+  { name: 'Nasi Ayam Sambal Matah',  price: '27', note: 'shallot · lemongrass · chili' },
+  { name: 'Nasi Ayam Laos',          price: '30', note: 'galangal · aromatic' },
+  { name: 'Nasi Goreng Spesial',     price: '28', note: 'fried rice · egg · krupuk' },
+  { name: 'Mie Bangladesh',          price: '23', note: 'house special noodles' },
+  { name: 'Kaya Toast',              price: '15', note: 'pandan jam · butter' },
+  { name: 'Donat Oma · Cokelat',     price: '12', note: 'oma\'s recipe · daily', star: true },
 ];
 
 const KC_PRESS = [
@@ -93,15 +92,22 @@ function PhotoTile({ tone = 'a', cap, style, rotate = 0, children }) {
 }
 
 // ─── Polaroid (taped) ────────────────────────────────────────────
-function Polaroid({ tone='a', caption, rotate=0, w=200, h=240, style, tape='top' }) {
-  return (
+function Polaroid({ tone='a', caption, imageUrl, rotate=0, w=200, h=240, style, tape='top', href }) {
+  const body = (
     <div style={{
       position:'relative', width:w, padding:'12px 12px 36px', background:'#FBFAF1',
       boxShadow:'0 6px 16px rgba(20,30,15,0.18)', transform:`rotate(${rotate}deg)`,
       ...style,
     }}>
-      <PhotoTile tone={tone} cap={caption} style={{width:'100%',height:h-60}}/>
-      <div style={{position:'absolute',left:18,bottom:8,fontFamily:"'Caveat',cursive",fontSize:18,color:'#3a3a30'}}>
+      {imageUrl ? (
+        <div style={{width:'100%', height:h-60, overflow:'hidden', borderRadius:2, background:'#2a2a20', position:'relative'}}>
+          <img src={imageUrl} alt={caption||''} loading="lazy"
+            style={{width:'100%', height:'100%', objectFit:'cover', display:'block'}}/>
+        </div>
+      ) : (
+        <PhotoTile tone={tone} cap={caption} style={{width:'100%',height:h-60}}/>
+      )}
+      <div style={{position:'absolute',left:18,bottom:8,right:18,fontFamily:"'Caveat',cursive",fontSize:18,color:'#3a3a30',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>
         {caption || '—'}
       </div>
       {tape==='top' && <div className="tape" style={{top:-10,left:'50%',transform:'translateX(-50%) rotate(-3deg)'}}/>}
@@ -109,6 +115,61 @@ function Polaroid({ tone='a', caption, rotate=0, w=200, h=240, style, tape='top'
         <div className="tape" style={{top:-8,left:-12,width:60,transform:'rotate(-30deg)'}}/>
         <div className="tape" style={{top:-8,right:-12,width:60,transform:'rotate(30deg)'}}/>
       </>}
+    </div>
+  );
+  return href
+    ? <a href={href} target="_blank" rel="noreferrer" style={{textDecoration:'none', color:'inherit', display:'block'}}>{body}</a>
+    : body;
+}
+
+// ─── Instagram feed (behold.so JSON) ─────────────────────────────
+function InstaFeed({ feedId, count = 6, rotates = [-3,2,-1.5,1.5,-2,1] }) {
+  const [posts, setPosts] = React.useState(null);
+  const [err, setErr]     = React.useState(null);
+
+  React.useEffect(() => {
+    let alive = true;
+    fetch(`https://feeds.behold.so/${feedId}`)
+      .then(r => r.ok ? r.json() : Promise.reject(new Error('http '+r.status)))
+      .then(d => { if (alive) setPosts((d.posts || []).slice(0, count)); })
+      .catch(e => { if (alive) setErr(e.message); });
+    return () => { alive = false; };
+  }, [feedId, count]);
+
+  const tones = ['a','b','c','d','e','f'];
+
+  if (err) {
+    return (
+      <div style={{fontFamily:"'Caveat',cursive", fontSize:24, color:'var(--muted)', padding:'32px 0'}}>
+        couldn't load the feed right now — try refreshing in a moment.
+      </div>
+    );
+  }
+
+  const items = posts || Array.from({length: count}, (_, i) => ({ _placeholder: true, _i: i }));
+
+  return (
+    <div style={{ display:'grid', gridTemplateColumns:`repeat(${count},1fr)`, gap:18 }}>
+      {items.map((p, k) => {
+        if (p._placeholder) {
+          return <Polaroid key={k} tone={tones[k % tones.length]} caption="loading…"
+            w={null} h={200} rotate={rotates[k % rotates.length]} style={{width:'100%'}}/>;
+        }
+        const img = p.thumbnailUrl
+          || (p.sizes && (p.sizes.medium?.mediaUrl || p.sizes.small?.mediaUrl))
+          || (p.mediaType !== 'VIDEO' ? p.mediaUrl : null);
+        const firstLine = (p.prunedCaption || p.caption || '').split('\n').map(s=>s.trim()).filter(Boolean)[0] || '—';
+        return (
+          <Polaroid key={p.id}
+            tone={tones[k % tones.length]}
+            imageUrl={img}
+            caption={firstLine}
+            href={p.permalink}
+            w={null} h={200}
+            rotate={rotates[k % rotates.length]}
+            style={{width:'100%'}}/>
+        );
+      })}
     </div>
   );
 }
@@ -147,5 +208,5 @@ function Scribble({ kind = 'arrow-r', stroke = '#1E2B1C', w = 80, h = 40, style 
 
 Object.assign(window, {
   KC_COPY, KC_COFFEE, KC_FOOD, KC_PRESS, KC_INSTA,
-  KcLogo, PhotoTile, Polaroid, Scribble,
+  KcLogo, PhotoTile, Polaroid, Scribble, InstaFeed,
 });

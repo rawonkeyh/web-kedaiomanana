@@ -32,7 +32,7 @@ function LandingB({ show = {} }) {
       {/* ── HERO ──────────────────────────────── */}
       {s.hero && (
         <section style={{ position:'relative', padding:'40px 56px 120px' }}>
-          <div style={{ position:'relative', minHeight:680 }}>
+          <div style={{ position:'relative', minHeight:900 }}>
             {/* Big handwritten greeting */}
             <div style={{ fontFamily:"'Caveat',cursive", fontSize:48, color:'var(--accent)', transform:'rotate(-3deg)', position:'absolute', top:0, left:8 }}>
               hai, you found us —
@@ -50,13 +50,32 @@ function LandingB({ show = {} }) {
               kedai oma nana · since 2025
             </div>
 
-            {/* Polaroids */}
-            <Polaroid tone="a" caption="oma's matcha" rotate={5} w={220} h={260}
-              style={{ position:'absolute', top:60, right:80 }}/>
-            <Polaroid tone="b" caption="lapis day" rotate={-7} w={200} h={240}
-              style={{ position:'absolute', top:330, right:260 }}/>
-            <Polaroid tone="c" caption="three tables" rotate={4} w={180} h={220}
-              style={{ position:'absolute', top:430, right:30, tape:'corner' }} tape="corner"/>
+            {/* YouTube Shorts in polaroid frames */}
+            {[
+              { id:'nfF57jOoURs', cap:'a peek inside ✶',  top:340, right:340, rot:-3 },
+              { id:'ddDWqwyVwbk', cap:'morning at oma\'s', top:390, right:40,  rot:4  },
+            ].map(v => (
+              <div key={v.id} style={{
+                position:'absolute', top:v.top, right:v.right, width:260,
+                padding:'14px 14px 42px', background:'#FBFAF1',
+                boxShadow:'0 14px 36px rgba(20,30,15,0.22)',
+                transform:`rotate(${v.rot}deg)`,
+              }}>
+                <div style={{ width:'100%', aspectRatio:'9 / 16', background:'#000', borderRadius:2, overflow:'hidden' }}>
+                  <iframe
+                    src={`https://www.youtube.com/embed/${v.id}?autoplay=1&mute=1&playsinline=1&loop=1&playlist=${v.id}&controls=0&modestbranding=1&rel=0`}
+                    title={v.cap}
+                    style={{ width:'100%', height:'100%', border:0, display:'block' }}
+                    allow="autoplay; encrypted-media; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                </div>
+                <div style={{ position:'absolute', left:20, bottom:10, fontFamily:"'Caveat',cursive", fontSize:20, color:'#3a3a30' }}>
+                  {v.cap}
+                </div>
+                <div className="tape" style={{ top:-12, left:'50%', transform:'translateX(-50%) rotate(-3deg)' }}/>
+              </div>
+            ))}
 
             {/* Intro card with paragraph */}
             <div style={{ position:'absolute', left:0, top:430, maxWidth:520, background:'#FBFAF1', padding:'28px 32px', boxShadow:'0 6px 18px rgba(20,30,15,0.1)', transform:'rotate(-1deg)' }}>
@@ -111,7 +130,7 @@ function LandingB({ show = {} }) {
           </h2>
           <div style={{ display:'grid', gridTemplateColumns:'repeat(3,1fr)', gap:24 }}>
             {KC_FOOD.map((d, i) => (
-              <div key={d.name} style={{ background:'#FBFAF1', padding:'24px 26px', boxShadow:'0 4px 12px rgba(20,30,15,0.06)', position:'relative', transform:`rotate(${[-0.6,0.4,-0.3,0.5,-0.5,0.3][i]}deg)` }}>
+              <div key={d.name} style={{ background:'#FBFAF1', padding:'24px 26px', boxShadow:'0 4px 12px rgba(20,30,15,0.06)', position:'relative', transform:`rotate(${[-0.6,0.4,-0.3,0.5,-0.5,0.3,-0.4][i]}deg)` }}>
                 <div style={{ display:'flex', alignItems:'baseline', justifyContent:'space-between', gap:12 }}>
                   <div style={{ fontFamily:"'Fraunces',serif", fontSize:28, fontWeight:400, letterSpacing:'-0.01em' }}>{d.name}</div>
                   <div className="mono" style={{ fontSize:14, color:'var(--accent)' }}>{d.price}</div>
@@ -153,7 +172,7 @@ function LandingB({ show = {} }) {
                 </div>
               ))}
               <div style={{ marginTop:18, fontFamily:"'Caveat',cursive", fontSize:22, color:'var(--accent)' }}>
-                closed on holidays + oma's birthday (sept 14).
+                no days off — come whenever.
               </div>
             </div>
           </div>
@@ -190,15 +209,9 @@ function LandingB({ show = {} }) {
               <div className="mono" style={{ fontSize:11, letterSpacing:'0.22em', textTransform:'uppercase', color:'var(--muted)' }}>05 — the feed</div>
               <h3 style={{ fontFamily:"'Caveat',cursive", fontWeight:700, fontSize:72, margin:'4px 0 0', color:'var(--accent)' }}>@kon.cafe</h3>
             </div>
-            <a style={btnB}>follow along →</a>
+            <a href="https://instagram.com/kedaiomanana" target="_blank" rel="noreferrer" style={btnB}>Follow Us →</a>
           </div>
-          <div style={{ display:'grid', gridTemplateColumns:'repeat(6,1fr)', gap:18 }}>
-            {KC_INSTA.map((i, k) => (
-              <Polaroid key={k} tone={i.tone} caption={i.cap} w={null} h={200}
-                rotate={[-3,2,-1.5,1.5,-2,1][k]}
-                style={{ width:'100%' }}/>
-            ))}
-          </div>
+          <InstaFeed feedId="GIstEmcXuNk3WTtdBQs4" count={6} />
         </section>
       )}
 
