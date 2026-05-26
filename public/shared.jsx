@@ -123,7 +123,8 @@ function Polaroid({ tone='a', caption, imageUrl, rotate=0, w=200, h=240, style, 
 }
 
 // ─── Instagram feed (behold.so JSON) ─────────────────────────────
-function InstaFeed({ feedId, count = 6, rotates = [-3,2,-1.5,1.5,-2,1] }) {
+function InstaFeed({ feedId, count = 6, columns, rotates = [-3,2,-1.5,1.5,-2,1] }) {
+  const cols = columns ?? count;
   const [posts, setPosts] = React.useState(null);
   const [err, setErr]     = React.useState(null);
 
@@ -149,7 +150,7 @@ function InstaFeed({ feedId, count = 6, rotates = [-3,2,-1.5,1.5,-2,1] }) {
   const items = posts || Array.from({length: count}, (_, i) => ({ _placeholder: true, _i: i }));
 
   return (
-    <div style={{ display:'grid', gridTemplateColumns:`repeat(${count},1fr)`, gap:18 }}>
+    <div style={{ display:'grid', gridTemplateColumns:`repeat(${cols},1fr)`, gap:18 }}>
       {items.map((p, k) => {
         if (p._placeholder) {
           return <Polaroid key={k} tone={tones[k % tones.length]} caption="loading…"

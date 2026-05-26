@@ -22,7 +22,7 @@
     --stamp:#B0432B;
     --ink:#2A1A12;
   }
-  html,body{margin:0;padding:0;background:var(--paper);color:var(--espresso);font-family:'Inter Tight',system-ui,sans-serif;}
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--espresso);font-family:'Inter Tight',system-ui,sans-serif;overflow-x:hidden;}
   *{box-sizing:border-box;}
 
   .kc-logo{display:inline-block;color:var(--espresso);text-align:left;}
@@ -72,7 +72,16 @@
 <script type="text/babel">
 function App() {
   const ref = React.useRef(null);
+  const [isMobile, setIsMobile] = React.useState(typeof window !== 'undefined' && window.innerWidth < 768);
+
   React.useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  React.useEffect(() => {
+    if (isMobile) return;
     const fit = () => {
       const el = ref.current; if (!el) return;
       const parent = el.parentElement;
@@ -83,7 +92,10 @@ function App() {
     fit();
     window.addEventListener('resize', fit);
     return () => window.removeEventListener('resize', fit);
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) return <LandingBMobile/>;
+
   return (
     <div className="stage">
       <div className="frame" ref={ref}>
