@@ -1,0 +1,566 @@
+<!DOCTYPE html><html lang="en"><head><base href="/menu/">
+
+
+
+
+<meta charset="utf-8">
+<title>kon.cafe — menu</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet">
+<style>
+  :root{
+    --espresso:#2A1A12;
+    --cream:#F5EDE2;
+    --cream-2:#EFE6D9;
+    --tan:#D6C5AC;
+    --muted:#6B4A36;
+    --accent:#B85C2E;
+    --accent-light:#E89968;
+    --ink:#1F140D;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#D8CFBE;color:var(--ink);font-family:'Inter Tight',system-ui,sans-serif;}
+
+  .stage{padding:40px 24px 80px;display:flex;justify-content:center;}
+  .menu{
+    width:840px; max-width:100%; min-width:0; min-height:1188px;
+    background:var(--cream);
+    padding:64px 56px 72px;
+    box-shadow:0 24px 64px rgba(42,26,18,0.18);
+    position:relative;
+    overflow:hidden;
+  }
+
+  /* paper grain */
+  .menu::before{
+    content:'';position:absolute;inset:0;pointer-events:none;
+    background-image:radial-gradient(rgba(42,26,18,0.04) 0.5px, transparent 0.5px);
+    background-size:8px 8px;
+  }
+  .menu > *{position:relative;}
+
+  /* image slots */
+  .cat-hero{margin:-4px 0 14px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;}
+  .cat-hero image-slot{display:block;width:100%;min-width:0;}
+  .cat-hero .hero-wrap{min-width:0;}
+  .hero-strip{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);gap:8px;margin:26px 0 8px;}
+  .hero-strip image-slot{display:block;width:100%;min-width:0;}
+  .hero-strip .hero-wrap{min-width:0;}
+  .hero-wrap{position:relative;}
+  .hero-cap{position:absolute;left:10px;bottom:10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--cream);background:rgba(42,26,18,0.65);padding:4px 8px;border-radius:2px;pointer-events:none;}
+
+  /* ─── Header ─── */
+  .head{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:22px;border-bottom:1px solid var(--ink);}
+  .head .lhs{}
+  .head .logo .mark{font-family:'Inter Tight';font-weight:600;letter-spacing:-0.055em;font-size:48px;line-height:1;}
+  .head .logo .mark .dot{color:var(--accent);}
+  .head .logo .mark .lt{font-weight:300;}
+  .head .logo .tag{font-family:'Inter Tight';font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);font-size:10px;margin-top:8px;}
+  .head .rhs{text-align:right;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);line-height:1.7;}
+  .head .rhs .big{display:block;font-family:'Instrument Serif',serif;font-style:italic;font-size:38px;letter-spacing:-0.01em;color:var(--ink);text-transform:none;line-height:1;margin-bottom:8px;font-weight:400;}
+
+  /* ─── Body grid ─── */
+  /* .col uses display:contents so .cat children become direct grid items of .body.
+     With grid-auto-flow:column and 4 explicit rows, sections fill column 1 (01-04)
+     then column 2 (05-07). Each grid row's height = max of its paired sections,
+     so the left and right category headings line up horizontally. */
+  .body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:repeat(4,auto);grid-auto-flow:column;gap:0 48px;margin-top:36px;}
+  .body > .col{display:contents;}
+  .body > .col > .cat{min-width:0;}
+
+  .cat{margin-bottom:30px;break-inside:avoid;}
+  .cat-hd{display:flex;align-items:baseline;gap:14px;margin-bottom:14px;}
+  .cat-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:0.16em;}
+  .cat-name{font-family:'Instrument Serif',serif;font-style:italic;font-size:30px;letter-spacing:-0.015em;color:var(--ink);line-height:1;}
+  .cat-rule{flex:1;border-bottom:1px dotted var(--muted);opacity:0.5;margin-bottom:4px;}
+  .cat-sub{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);}
+
+  .items{display:flex;flex-direction:column;}
+  .sub-hd{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin:12px 0 2px;display:flex;align-items:center;gap:8px;}
+  .sub-hd::after{content:'';flex:1;border-bottom:1px dotted rgba(184,92,46,0.35);}
+  .sub-hd:first-child{margin-top:0;}
+  .row{display:flex;align-items:flex-end;gap:6px;padding:7px 0;border-bottom:1px solid rgba(42,26,18,0.08);}
+  .row:last-child{border-bottom:none;}
+  .row .nm{flex:0 1 auto;font-size:14px;font-weight:500;color:var(--ink);letter-spacing:-0.01em;line-height:1.25;}
+  .row .nm small{display:block;font-weight:400;font-size:11px;color:var(--muted);margin-top:2px;letter-spacing:0;text-transform:none;}
+  .row .dots{flex:1 1 24px;min-width:24px;border-bottom:1px dotted rgba(42,26,18,0.25);transform:translateY(-5px);margin:0 4px;}
+  .row .pr{flex:0 0 auto;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;color:var(--ink);letter-spacing:0.02em;white-space:nowrap;}
+  .row.feat .nm{color:var(--accent);font-weight:600;}
+  .row .star{color:var(--accent);font-size:11px;margin-right:2px;}
+
+  /* ─── Footer ─── */
+  .foot{
+    margin-top:36px;padding-top:22px;border-top:1px solid var(--ink);
+    display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;align-items:start;
+    position:relative;
+  }
+  .foot .blk{min-width:0;}
+  .foot .blk dt{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+  .foot .blk dd{margin:0;font-size:13px;line-height:1.5;color:var(--ink);font-weight:500;}
+  .foot .blk .small{font-size:11px;color:var(--muted);font-weight:400;line-height:1.5;margin-top:4px;}
+  .foot .stamp{
+    position:absolute;right:0;top:-110px;
+    width:88px;height:88px;border-radius:50%;border:1.5px solid var(--accent);
+    display:flex;align-items:center;justify-content:center;flex-direction:column;
+    transform:rotate(-8deg);color:var(--accent);
+  }
+  .foot .stamp::after{content:'';position:absolute;inset:4px;border-radius:50%;border:1px dashed var(--accent);opacity:0.5;}
+  .foot .stamp .top{font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:2px;}
+  .foot .stamp .big{font-family:'Instrument Serif',serif;font-style:italic;font-size:22px;line-height:1;letter-spacing:-0.02em;}
+  .foot .stamp .bot{font-family:'JetBrains Mono',monospace;font-size:6px;letter-spacing:0.2em;text-transform:uppercase;margin-top:2px;}
+
+  /* Donat split layout */
+  .donat-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:stretch;}
+  .donat-split .hero-wrap{display:flex;}
+  .donat-split image-slot{display:block;width:100%;}
+  .donat-split .right{display:flex;flex-direction:column;gap:10px;}
+  .price-ladder{display:flex;gap:8px;}
+  .price-ladder .tier{flex:1;background:var(--cream-2);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;}
+  .price-ladder .qty{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);}
+  .price-ladder .pr{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:600;color:var(--ink);letter-spacing:0.01em;}
+  .price-ladder .save{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-top:1px;}
+  .topping-hd{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+  .topping-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px;}
+  .topping-grid .tp{display:flex;align-items:baseline;gap:6px;font-size:13px;color:var(--ink);font-weight:500;padding:4px 0;border-bottom:1px dotted rgba(42,26,18,0.18);}
+  .topping-grid .tp::before{content:'○';color:var(--accent);font-size:8px;}
+
+  /* Add-ons inline strip */
+  .addons{
+    margin-top:14px;padding:14px 16px;background:var(--cream-2);border-radius:6px;
+    display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+  }
+  .addons .lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);}
+  .addons .item{font-size:12px;color:var(--ink);font-weight:500;}
+  .addons .item .pr{font-family:'JetBrains Mono',monospace;color:var(--muted);font-weight:400;margin-left:4px;}
+
+  /* corner serial */
+  .corner-tl, .corner-br{position:absolute;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);}
+  .corner-tl{top:20px;left:24px;}
+  .corner-br{bottom:20px;right:24px;}
+
+  @media print {
+    @page { size: A4 portrait; margin: 0; }
+    html,body{background:var(--cream);-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .stage{padding:0;}
+    .menu{width:210mm;min-height:297mm;box-shadow:none;padding:18mm 16mm;}
+  }
+  /* ─── Responsive ─── */
+  @media (max-width:900px){
+    .stage{padding:24px 16px 60px;}
+    .menu{width:100%;max-width:840px;min-height:0;padding:48px 36px 56px;}
+    .body{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row;gap:24px;}
+    .hero-strip{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;}
+    .foot{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;}
+    .foot .stamp{display:none;}
+  }
+  @media (max-width:640px){
+    .stage{padding:16px 10px 40px;}
+    .menu{padding:32px 20px 40px;}
+    .corner-tl, .corner-br{display:none;}
+
+    .head{flex-direction:column;align-items:flex-start;gap:14px;padding-bottom:18px;}
+    .head .rhs{text-align:left;}
+    .head .rhs .big{font-size:30px;margin-bottom:6px;}
+    .head .logo .mark{font-size:38px;}
+
+    .hero-strip{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;margin:20px 0 8px;}
+    .hero-strip image-slot{height:130px !important;}
+
+    .body{margin-top:24px;gap:20px;}
+    .cat{margin-bottom:22px;}
+    .cat-name{font-size:24px;}
+    .cat-hd{gap:10px;margin-bottom:10px;}
+
+    /* per-category photo grids are forced to 4-col via inline style — override */
+    .cat-hero{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:6px;}
+
+    .donat-split{grid-template-columns:1fr;gap:12px;}
+    .price-ladder .pr{font-size:14px;}
+    .topping-grid{gap:2px 10px;}
+
+    .foot{grid-template-columns:1fr;gap:16px;margin-top:28px;padding-top:18px;}
+  }
+  @media (max-width:380px){
+    .menu{padding:24px 14px 32px;}
+    .head .logo .mark{font-size:32px;}
+    .head .rhs .big{font-size:24px;}
+    .cat-name{font-size:21px;}
+    .row .nm{font-size:13px;}
+    .row .pr{font-size:11px;}
+  }
+</style>
+<style id="print-a3">
+    html,body{background:var(--cream)!important;margin:0!important;padding:0!important;width:297mm!important;height:420mm!important;overflow:hidden!important;}
+    .stage{padding:0!important;display:block!important;width:297mm!important;height:420mm!important;overflow:hidden!important;}
+    .menu{
+      width:297mm!important;
+      min-height:420mm!important;
+      max-width:none!important;
+      box-shadow:none!important;
+      padding:14mm 16mm 14mm!important;
+    }
+    /* Single-column flow for the visible side. */
+    .body{grid-template-columns:minmax(0,1fr)!important;grid-template-rows:none!important;grid-auto-flow:row!important;gap:0!important;margin-top:14px!important;}
+    .body > .col:nth-child(1){display:none!important;}
+    .body .cat{margin-bottom:14px!important;}
+
+    /* Top hero strip — keep but compact. */
+    .hero-strip{margin:14px 0 4px!important;gap:6px!important;}
+    .hero-strip image-slot{height:130px!important;}
+
+    /* Per-category photo strip: short and wide. */
+    .cat-hero{margin:-2px 0 8px!important;gap:6px!important;}
+    .cat-hero image-slot{aspect-ratio:unset!important;height:110px!important;}
+
+    /* Donat layout — photo + price ladder + toppings */
+    .donat-split{gap:12px!important;}
+    .donat-split .hero-wrap image-slot{aspect-ratio:unset!important;height:auto!important;min-height:160px!important;}
+
+    /* Items in 2 sub-columns to fit the long drink/food lists. The base CSS
+       uses display:flex on .items, which would override column-count, so
+       force block. */
+    .items{display:block!important;column-count:2!important;column-gap:24px!important;column-fill:balance!important;}
+    .items .sub-hd,.items .row{break-inside:avoid!important;-webkit-column-break-inside:avoid!important;page-break-inside:avoid!important;}
+    .items .sub-hd:first-child{margin-top:0!important;}
+
+    /* Tighten typography for density. */
+    .head{padding-bottom:12px!important;}
+    .head .logo .mark{font-size:40px!important;}
+    .head .rhs .big{font-size:28px!important;margin-bottom:4px!important;}
+    .cat-name{font-size:24px!important;}
+    .cat-hd{margin-bottom:8px!important;}
+    .row{padding:3px 0!important;}
+    .row .nm{font-size:12px!important;line-height:1.2!important;}
+    .row .pr{font-size:11px!important;}
+    .row .dots{transform:translateY(-4px)!important;}
+    .sub-hd{margin:6px 0 1px!important;font-size:8px!important;}
+    .addons{margin-top:8px!important;padding:8px 12px!important;column-count:1!important;}
+    .addons .item{font-size:11px!important;}
+    .foot{margin-top:12px!important;padding-top:10px!important;gap:16px!important;}
+    .foot .blk dd{font-size:12px!important;}
+    .foot .blk .small{font-size:10px!important;}
+    .foot .stamp{top:-85px!important;width:70px!important;height:70px!important;}
+    .foot .stamp .big{font-size:16px!important;}
+  </style></head>
+<body style="">
+<div class="stage">
+  <div class="menu">
+
+    <div class="corner-tl">№ 001 · vol. i</div>
+    <div class="corner-br">printed · may 2026</div>
+
+    <!-- Header -->
+    <header class="head">
+      <div class="lhs">
+        <div class="logo">
+          <div class="mark">kon<span class="dot">.</span><span class="lt">cafe</span></div>
+          <div class="tag">kedai oma nana — since 2025</div>
+        </div>
+      </div>
+      <div class="rhs">
+        <span class="big">the menu.</span>
+        coffee · kitchen · refreshers<br>
+        all-day · est. 2025
+      </div>
+    </header>
+
+    <!-- Signature hero strip -->
+    <div class="hero-strip">
+      <div class="hero-wrap">
+        <image-slot id="hero-signature" style="width:100%;height:160px;" shape="rounded" radius="6" placeholder="Drop signature dish" src="images/hero-signature.webp"></image-slot>
+        <div class="hero-cap">★ Nasi Ayam Laos</div>
+      </div>
+      <div class="hero-wrap">
+        <image-slot id="hero-coffee" style="width:100%;height:160px;" shape="rounded" radius="6" placeholder="Drop coffee photo" src="images/hero-coffee.webp"></image-slot>
+        <div class="hero-cap">★ Mont Blanc</div>
+      </div>
+      <div class="hero-wrap">
+        <image-slot id="hero-matcha" style="width:100%;height:160px;" shape="rounded" radius="6" placeholder="Drop drink photo" src="images/hero-matcha.webp"></image-slot>
+        <div class="hero-cap">★ Caesar Salad</div>
+      </div>
+      <div class="hero-wrap">
+        <image-slot id="hero-donat" style="width:100%;height:160px;" shape="rounded" radius="6" placeholder="Drop drink photo" src="images/hero-donat.webp"></image-slot>
+        <div class="hero-cap">★ Ice Matcha</div>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="body">
+
+      <!-- LEFT COLUMN ─── DRINKS ─── -->
+      <div class="col">
+
+        <!-- COFFEE -->
+        <section class="cat">
+          <div class="cat-hd">
+            <span class="cat-num">01</span>
+            <h2 class="cat-name">Coffee</h2>
+            <span class="cat-rule"></span>
+            <span class="cat-sub">hot · ice</span>
+          </div>
+          <div class="cat-hero" style="grid-template-columns:repeat(4,minmax(0,1fr));">
+            <div class="hero-wrap"><image-slot id="coffee-1" style="width:100%;aspect-ratio:1;" shape="rounded" radius="4" placeholder="latte" src="images/coffee-1.webp"></image-slot><div class="hero-cap">Cafe Latte</div></div>
+            <div class="hero-wrap"><image-slot id="coffee-2" style="width:100%;aspect-ratio:1;" shape="rounded" radius="4" placeholder="affogato" src="images/coffee-2.webp"></image-slot><div class="hero-cap">Affogato</div></div>
+            <div class="hero-wrap"><image-slot id="coffee-3" style="width:100%;aspect-ratio:1;" shape="rounded" radius="4" placeholder="kopi" src="images/coffee-3.webp"></image-slot><div class="hero-cap">Salted Caramel Latte</div></div>
+            <div class="hero-wrap"><image-slot id="coffee-4" style="width:100%;aspect-ratio:1;" shape="rounded" radius="4" placeholder="espresso" src="images/coffee-4.webp"></image-slot><div class="hero-cap">Dirty Latte</div></div>
+          </div>
+          <div class="items">
+            <div class="sub-hd">Espresso</div>
+            <div class="row"><span class="nm">Affogato</span><span class="dots"></span><span class="pr">20.000</span></div>
+            <div class="row"><span class="nm">Americano</span><span class="dots"></span><span class="pr">22.000</span></div>
+            <div class="row"><span class="nm">Americano Orenji</span><span class="dots"></span><span class="pr">25.000</span></div>
+
+            <div class="sub-hd">Latte</div>
+            <div class="row feat"><span class="nm"><span class="star">★</span>Cafe Latte</span><span class="dots"></span><span class="pr">23.000</span></div>
+            <div class="row"><span class="nm">Vanilla Latte</span><span class="dots"></span><span class="pr">24.000</span></div>
+            <div class="row"><span class="nm">Hazelnut Latte</span><span class="dots"></span><span class="pr">24.000</span></div>
+            <div class="row"><span class="nm">Mochaccino</span><span class="dots"></span><span class="pr">24.000</span></div>
+            <div class="row feat"><span class="nm"><span class="star">★</span>Dirty Latte</span><span class="dots"></span><span class="pr">28.000</span></div>
+
+            <div class="sub-hd">Macchiato</div>
+            <div class="row feat"><span class="nm"><span class="star">★</span>Mont Blanc</span><span class="dots"></span><span class="pr">28.000</span></div>
+            <div class="row feat"><span class="nm"><span class="star">★</span>Salted Caramel Latte</span><span class="dots"></span><span class="pr">28.000</span></div>
+            <div class="row"><span class="nm">Cream Cheese Latte</span><span class="dots"></span><span class="pr">28.000</span></div>
+            <div class="row"><span class="nm">Tiramisu Latte</span><span class="dots"></span><span class="pr">28.000</span></div>
+
+            <div class="sub-hd">Kopitiam Heritage</div>
+            <div class="row"><span class="nm">Kopi-O</span><span class="dots"></span><span class="pr">13.000</span></div>
+            <div class="row"><span class="nm">Kopitiam</span><span class="dots"></span><span class="pr">15.000</span></div>
+            <div class="row"><span class="nm">Kopi Butter</span><span class="dots"></span><span class="pr">15.000</span></div>
+            <div class="row"><span class="nm">Vietnam Drip</span><span class="dots"></span><span class="pr">15.000</span></div>
+            <div class="row"><span class="nm">Kopi Susu Gula Aren</span><span class="dots"></span><span class="pr">24.000</span></div>
+          </div>
+
+          <div class="addons">
+            <span class="lbl">add on</span>
+            <span class="item">Ekstra Shot<span class="pr">4.000</span></span>
+          </div>
+        </section>
+
+        <!-- MILK -->
+        <section class="cat">
+          <div class="cat-hd">
+            <span class="cat-num">02</span>
+            <h2 class="cat-name">Milk &amp; Matcha</h2>
+            <span class="cat-rule"></span>
+            <span class="cat-sub">hot · ice</span>
+          </div>
+          <div class="cat-hero" style="grid-template-columns:repeat(3,minmax(0,1fr));">
+            <div class="hero-wrap"><image-slot id="milk-1" style="width:100%;aspect-ratio:1;" shape="rounded" radius="4" placeholder="milkshake" src="images/milk-1.webp"></image-slot><div class="hero-cap">Susu Coklat Oma</div></div>
+            <div class="hero-wrap"><image-slot id="milk-2" style="width:100%;aspect-ratio:1;" shape="rounded" radius="4" placeholder="matcha" src="images/milk-2.webp"></image-slot><div class="hero-cap">Mix Berries</div></div>
+            <div class="hero-wrap"><image-slot id="milk-3" style="width:100%;aspect-ratio:1;" shape="rounded" radius="4" placeholder="choco" src="images/milk-3.webp"></image-slot><div class="hero-cap">Matcha Butterscotch</div></div>
+          </div>
+          <div class="items">
+            <div class="sub-hd">Milk</div>
+            <div class="row feat"><span class="nm"><span class="star">★</span>Susu Cokelat Oma</span><span class="dots"></span><span class="pr">18.000</span></div>
+            <div class="row"><span class="nm">Milo Dinosaur</span><span class="dots"></span><span class="pr">20.000</span></div>
+            <div class="row"><span class="nm">Cocopandan Milkshake</span><span class="dots"></span><span class="pr">20.000</span></div>
+            <div class="row"><span class="nm">Banana Milkshake</span><span class="dots"></span><span class="pr">22.000</span></div>
+            <div class="row feat"><span class="nm"><span class="star">★</span>Choco Caramel Bengbeng</span><span class="dots"></span><span class="pr">25.000</span></div>
+            <div class="row"><span class="nm">Choco Hazelnut</span><span class="dots"></span><span class="pr">25.000</span></div>
+            <div class="row"><span class="nm">Choco Berry</span><span class="dots"></span><span class="pr">28.000</span></div>
+            <div class="row"><span class="nm">Strawberry Caramel</span><span class="dots"></span><span class="pr">31.000</span></div>
+
+            <div class="sub-hd">Matcha</div>
+            <div class="row"><span class="nm">Matcha Latte</span><span class="dots"></span><span class="pr">26.000</span></div>
+            <div class="row feat"><span class="nm"><span class="star">★</span>Matcha Butterscotch</span><span class="dots"></span><span class="pr">30.000</span></div>
+            <div class="row"><span class="nm">Matcha Berry</span><span class="dots"></span><span class="pr">32.000</span></div>
+          </div>
+        </section>
+
+        <!-- TEA -->
+        <section class="cat">
+          <div class="cat-hd">
+            <span class="cat-num">03</span>
+            <h2 class="cat-name">Tea</h2>
+            <span class="cat-rule"></span>
+            <span class="cat-sub">hot · ice</span>
+          </div>
+          <div class="items">
+            <div class="row"><span class="nm">Tea</span><span class="dots"></span><span class="pr">10.000</span></div>
+            <div class="row"><span class="nm">Peach Tea</span><span class="dots"></span><span class="pr">15.000</span></div>
+            <div class="row"><span class="nm">Lemon Tea</span><span class="dots"></span><span class="pr">15.000</span></div>
+            <div class="row"><span class="nm">Lychee Tea</span><span class="dots"></span><span class="pr">15.000</span></div>
+            <div class="row"><span class="nm">Teh Tarik / Milk Tea</span><span class="dots"></span><span class="pr">17.000</span></div>
+            <div class="row"><span class="nm">Wedang Uwuh</span><span class="dots"></span><span class="pr">20.000</span></div>
+          </div>
+        </section>
+
+        <!-- REFRESHERS -->
+        <section class="cat">
+          <div class="cat-hd">
+            <span class="cat-num">04</span>
+            <h2 class="cat-name">Sparks &amp; Refreshers</h2>
+            <span class="cat-rule"></span>
+            <span class="cat-sub">fizzy · cold</span>
+          </div>
+          <div class="items">
+            <div class="row"><span class="nm">Air Mineral</span><span class="dots"></span><span class="pr">8.000</span></div>
+            <div class="row"><span class="nm">Pink Sparkle</span><span class="dots"></span><span class="pr">22.000</span></div>
+            <div class="row"><span class="nm">Sunrise Mango</span><span class="dots"></span><span class="pr">24.000</span></div>
+            <div class="row feat"><span class="nm"><span class="star">★</span>Pandan Royale Spark</span><span class="dots"></span><span class="pr">24.000</span></div>
+            <div class="row"><span class="nm">Indo Saparella</span><span class="dots"></span><span class="pr">25.000</span></div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- RIGHT COLUMN ─── KITCHEN ─── -->
+      <div class="col">
+
+        <!-- NASI / MAINS -->
+        <section class="cat">
+          <div class="cat-hd">
+            <span class="cat-num">05</span>
+            <h2 class="cat-name">Dari Dapur</h2>
+            <span class="cat-rule"></span>
+            <span class="cat-sub">nasi &amp; mie</span>
+          </div>
+          <div class="cat-hero" style="grid-template-columns:repeat(3,minmax(0,1fr));">
+            <div class="hero-wrap"><image-slot id="food-1" style="width:100%;aspect-ratio:1;" shape="rounded" radius="4" placeholder="nasi rawon" src="images/food-1.webp"></image-slot><div class="hero-cap">Nasi Krengsengan Daging</div></div>
+            <div class="hero-wrap"><image-slot id="food-2" style="width:100%;aspect-ratio:1;" shape="rounded" radius="4" placeholder="nasi ayam" src="images/food-2.webp"></image-slot><div class="hero-cap">Nasi Rawon</div></div>
+            <div class="hero-wrap"><image-slot id="food-3" style="width:100%;aspect-ratio:1;" shape="rounded" radius="4" placeholder="mie" src="images/food-3.webp"></image-slot><div class="hero-cap">Mie Bangladesh</div></div>
+          </div>
+          <div class="items">
+            <div class="row"><span class="nm">Nasi Goreng</span><span class="dots"></span><span class="pr">25.000</span></div>
+            <div class="row"><span class="nm">Nasi Goreng Spesial</span><span class="dots"></span><span class="pr">28.000</span></div>
+            <div class="row feat"><span class="nm"><span class="star">★</span>Caesar Salad</span><span class="dots"></span><span class="pr">33.000</span></div>
+
+            <div class="sub-hd">Eggs</div>
+            <div class="row"><span class="nm">Nasi Telur Dadar Kriwil Sambal Bajak</span><span class="dots"></span><span class="pr">17.000</span></div>
+            <div class="row"><span class="nm">Nasi Telur Dadar Kriwil Sambal Ijo</span><span class="dots"></span><span class="pr">18.000</span></div>
+
+            <div class="sub-hd">Noodles</div>
+            <div class="row"><span class="nm">Mie Nyemek</span><span class="dots"></span><span class="pr">20.000</span></div>
+            <div class="row"><span class="nm">Mie Bangladesh</span><span class="dots"></span><span class="pr">23.000</span></div>
+
+            <div class="sub-hd">Chicken</div>
+            <div class="row"><span class="nm">Nasi Ayam Sambal Matah</span><span class="dots"></span><span class="pr">27.000</span></div>
+            <div class="row"><span class="nm">Nasi Ayam Sambal Ijo</span><span class="dots"></span><span class="pr">27.000</span></div>
+            <div class="row"><span class="nm">Nasi Ayam Teriyaki</span><span class="dots"></span><span class="pr">27.000</span></div>
+            <div class="row"><span class="nm">Nasi Ayam Kungpao</span><span class="dots"></span><span class="pr">28.000</span></div>
+            <div class="row feat"><span class="nm"><span class="star">★</span>Nasi Ayam Laos</span><span class="dots"></span><span class="pr">30.000</span></div>
+            <div class="row"><span class="nm">Nasi Ayam Lada Hitam</span><span class="dots"></span><span class="pr">30.000</span></div>
+            <div class="row"><span class="nm">Nasi Ayam Salted Egg</span><span class="dots"></span><span class="pr">30.000</span></div>
+            <div class="row"><span class="nm">Nasi Ayam Tongseng</span><span class="dots"></span><span class="pr">30.000</span></div>
+
+            <div class="sub-hd">Beef</div>
+            <div class="row feat"><span class="nm"><span class="star">★</span>Nasi Daging Krengsengan</span><span class="dots"></span><span class="pr">32.000</span></div>
+            <div class="row feat"><span class="nm"><span class="star">★</span>Nasi Daging Rawon</span><span class="dots"></span><span class="pr">35.000</span></div>
+          </div>
+
+          <div class="addons">
+            <span class="lbl">add on</span>
+            <span class="item">Nasi Putih<span class="pr">6.000</span></span>
+            <span class="item">Telur Mata Sapi<span class="pr">6.000</span></span>
+            <span class="item">Telur Dadar Kriwil<span class="pr">14.000</span></span>
+            <span class="item">Sayur Asem<span class="pr">10.000</span></span>
+            <span class="item">Sambal Bajak<span class="pr">2.000</span></span>
+          </div>
+        </section>
+
+        <!-- SNACKS -->
+        <section class="cat">
+          <div class="cat-hd">
+            <span class="cat-num">06</span>
+            <h2 class="cat-name">Snacks &amp; Toast</h2>
+            <span class="cat-rule"></span>
+            <span class="cat-sub">all-day</span>
+          </div>
+          <div class="cat-hero" style="grid-template-columns:repeat(3,minmax(0,1fr));">
+            <div class="hero-wrap"><image-slot id="snack-1" style="width:100%;aspect-ratio:1;" shape="rounded" radius="4" placeholder="toast" src="images/snack-1.webp"></image-slot><div class="hero-cap">Coklat Keju Toast</div></div>
+            <div class="hero-wrap"><image-slot id="snack-2" style="width:100%;aspect-ratio:1;" shape="rounded" radius="4" placeholder="platter" src="images/snack-2.webp"></image-slot><div class="hero-cap">Mix Platter</div></div>
+            <div class="hero-wrap"><image-slot id="snack-3" style="width:100%;aspect-ratio:1;" shape="rounded" radius="4" placeholder="snack" src="images/snack-3.webp"></image-slot><div class="hero-cap">Cheese Egg Sandwich</div></div>
+          </div>
+          <div class="items">
+            <div class="sub-hd">Fried</div>
+            <div class="row"><span class="nm">Cireng</span><span class="dots"></span><span class="pr">15.000</span></div>
+            <div class="row"><span class="nm">Tahu Walek</span><span class="dots"></span><span class="pr">15.000</span></div>
+            <div class="row"><span class="nm">Sosis Goreng</span><span class="dots"></span><span class="pr">15.000</span></div>
+            <div class="row"><span class="nm">Kentang Goreng</span><span class="dots"></span><span class="pr">15.000</span></div>
+            <div class="row feat"><span class="nm"><span class="star">★</span>Mix Platter</span><span class="dots"></span><span class="pr">25.000</span></div>
+
+            <div class="sub-hd">Toast</div>
+            <div class="row"><span class="nm">Kaya</span><span class="dots"></span><span class="pr">15.000</span></div>
+            <div class="row"><span class="nm">Kaya Pandan</span><span class="dots"></span><span class="pr">15.000</span></div>
+            <div class="row"><span class="nm">Coklat Keju</span><span class="dots"></span><span class="pr">15.000</span></div>
+            <div class="row"><span class="nm">Cheese Egg Sandwich</span><span class="dots"></span><span class="pr">20.000</span></div>
+          </div>
+        </section>
+
+        <!-- DONAT OMA -->
+        <section class="cat">
+          <div class="cat-hd">
+            <span class="cat-num">07</span>
+            <h2 class="cat-name">Donat Oma</h2>
+            <span class="cat-rule"></span>
+            <span class="cat-sub">fresh daily</span>
+          </div>
+          <div class="donat-split">
+            <div class="hero-wrap"><image-slot id="donat-1" style="width: 100%; height: 100%; min-height: 220px; --slot-bg: transparent" shape="rounded" radius="4" fit="contain" placeholder="donat oma" src="images/donat-1.webp"></image-slot></div>
+            <div class="right">
+              <div class="price-ladder">
+                <div class="tier">
+                  <span class="qty">1 pcs</span>
+                  <span class="pr">12.000</span>
+                </div>
+                <div class="tier">
+                  <span class="qty">6 pcs / box</span>
+                  <span class="pr">60.000</span>
+                  <span class="save">save 12.000</span>
+                </div>
+              </div>
+              <div class="topping-hd">6 toppings</div>
+              <div class="topping-grid">
+                <div class="tp">Coklat</div>
+                <div class="tp">Gula</div>
+                <div class="tp">Keju</div>
+                <div class="tp">Tiramisu</div>
+                <div class="tp">Red Velvet</div>
+                <div class="tp">Rainbow</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="foot">
+      <dl class="blk">
+        <dt>Find us</dt>
+        <dd>kon.cafe — kedai oma nana</dd>
+        <dd class="small">Open daily · 08.00 – 23.00</dd>
+        <dd class="small" style="display:flex;align-items:center;gap:6px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>@kedaiomanana</dd>
+        <dd class="small" style="font-weight:600;color:var(--ink);margin-top:4px;">https://kon.cafe</dd>
+      </dl>
+      <dl class="blk">
+        <dt>Legend</dt>
+        <dd class="small"><span style="color:var(--accent);font-weight:600;">★</span> &nbsp;House favourite</dd>
+        <dd class="small">All drinks · hot / ice</dd>
+      </dl>
+      <dl class="blk">
+        <dt>Prices</dt>
+        <dd class="small">in Indonesian Rupiah (IDR)</dd>
+      </dl>
+      <dl class="blk">
+        <dt>Booking Reservation</dt>
+        <dd class="small">Pesan Makanan &amp; Minuman untuk reservasi:</dd>
+        <dd class="small" style="font-weight:600;color:var(--ink);margin-top:4px;"><a href="https://kon.cafe/prebook" style="color:inherit;text-decoration:none;">https://kon.cafe/prebook</a></dd>
+      </dl>
+      <div class="stamp">
+        <div class="top">kedai</div>
+        <div class="big">oma<br>nana</div>
+        <div class="bot">est · 2025</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script src="image-slot.js"></script>
+
+
+</body></html>

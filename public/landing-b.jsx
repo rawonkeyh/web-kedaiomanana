@@ -22,7 +22,8 @@ function LandingB({ show = {} }) {
       <div style={{ position:'relative', display:'flex', alignItems:'center', justifyContent:'space-between', padding:'24px 56px' }}>
         <KcLogo size={20} tag={false} />
         <div style={{ display:'flex', gap:40, alignItems:'center' }}>
-          <span style={{ fontFamily:"'Caveat',cursive", fontSize:36, transform:'rotate(-2deg)', display:'inline-block' }}>menu</span>
+          <a href="/menu/"
+            style={{ fontFamily:"'Caveat',cursive", fontSize:36, transform:'rotate(-2deg)', display:'inline-block', color:'inherit', textDecoration:'none' }}>menu</a>
           <a href="https://maps.app.goo.gl/16mdYQC8e3piZpWR9" target="_blank" rel="noreferrer"
             style={{ fontFamily:"'Caveat',cursive", fontSize:36, transform:'rotate(-1deg)', display:'inline-block', color:'inherit', textDecoration:'none' }}>visit</a>
           <a href="https://pos.kon.cafe/prebook" target="_blank" rel="noreferrer"
@@ -86,7 +87,7 @@ function LandingB({ show = {} }) {
                 Slow coffee. Warm bread. A green little room that doesn't ask you to hurry. We open early and stay until the last conversation winds down.
               </p>
               <div style={{ marginTop:20, display:'flex', alignItems:'center', gap:12 }}>
-                <a style={btnB}>see the menu</a>
+                <a href="/menu/" style={btnB}>see the menu</a>
                 <Scribble kind="arrow-r" w={70} h={36} stroke="var(--accent)"/>
                 <span style={{ fontFamily:"'Caveat',cursive", fontSize:22, color:'var(--accent)' }}>start here</span>
               </div>
@@ -279,7 +280,8 @@ function LandingBMobile() {
         <div className="stamp" style={{ fontSize:9, padding:'4px 8px' }}>open today</div>
       </div>
       <div style={{ display:'flex', justifyContent:'center', gap:22, padding:`6px ${PAD}px 14px`, flexWrap:'wrap' }}>
-        <span style={{ fontFamily:"'Caveat',cursive", fontSize:26, transform:'rotate(-2deg)', display:'inline-block' }}>menu</span>
+        <a href="/menu/"
+          style={{ fontFamily:"'Caveat',cursive", fontSize:26, transform:'rotate(-2deg)', display:'inline-block', color:'inherit', textDecoration:'none' }}>menu</a>
         <a href="https://maps.app.goo.gl/16mdYQC8e3piZpWR9" target="_blank" rel="noreferrer"
           style={{ fontFamily:"'Caveat',cursive", fontSize:26, transform:'rotate(-1deg)', display:'inline-block', color:'inherit', textDecoration:'none' }}>visit</a>
         <a href="https://pos.kon.cafe/prebook" target="_blank" rel="noreferrer"
@@ -303,7 +305,7 @@ function LandingBMobile() {
             Slow coffee. Warm bread. A green little room that doesn't ask you to hurry. We open early and stay until the last conversation winds down.
           </p>
           <div style={{ marginTop:16, display:'flex', alignItems:'center', gap:10 }}>
-            <a style={btnB}>see the menu</a>
+            <a href="/menu/" style={btnB}>see the menu</a>
             <Scribble kind="arrow-r" w={50} h={28} stroke="var(--accent)"/>
           </div>
         </div>
